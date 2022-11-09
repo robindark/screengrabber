@@ -8,9 +8,10 @@ if __name__ == "__main__":
 
     with mss.mss() as sct:
 
-        image_format = ".gif"
-        picture_counter = 0
-        max_pictures = 5
+        image_format = ".jpg"
+        picture_counter_start_offset = 10
+        picture_counter = picture_counter_start_offset
+        max_pictures = 50
         sleep_time_secs = 2
 
         # information of monitor
@@ -36,25 +37,24 @@ if __name__ == "__main__":
 
             image_resized = im.frombytes(
                 "RGB", sct_img.size, sct_img.bgra, "raw", "BGRX"
-            )
+            ).resize((1280, 720), im.LANCZOS)
             image_resized.save(
                 "\\\mfs\mfs\kodi-sync\infoscreens\screen"
                 + str(picture_counter)
                 + image_format
             )
 
+            time.sleep(sleep_time_secs)
+
             try:
                 os.remove(
                     "\\\mfs\mfs\kodi-sync\infoscreens\screen"
-                    + str(5 - picture_counter)
+                    + str(max_pictures - picture_counter)
                     + image_format
                 )
             except:
                 pass
 
             picture_counter = picture_counter + 1
-
             if picture_counter > max_pictures:
-                picture_counter = 0
-
-            time.sleep(sleep_time_secs)
+                picture_counter = picture_counter_start_offset
