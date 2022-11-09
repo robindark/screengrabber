@@ -8,9 +8,9 @@ if __name__ == "__main__":
 
     with mss.mss() as sct:
 
-        image_format = ".gif"
+        image_format = ".jpg"
         picture_counter = 0
-        max_pictures = 5
+        max_pictures = 10
         sleep_time_secs = 2
 
         # information of monitor
@@ -46,7 +46,7 @@ if __name__ == "__main__":
             try:
                 os.remove(
                     "\\\mfs\mfs\kodi-sync\infoscreens\screen"
-                    + str(5 - picture_counter)
+                    + str(max_pictures - picture_counter)
                     + image_format
                 )
             except:
